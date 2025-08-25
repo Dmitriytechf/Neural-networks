@@ -85,9 +85,10 @@ INPUT_SIZE = 1  # Значение временного ряда
 HIDDEN_SIZE = 128 # Размер скрытого состояния
 NUM_LAYERS = 2    # Количество RNN слоев
 DROPOUT = 0.4    # Для предотвращения переобучения
+RNN_TYPE = 'LSTM'
 
 # Создаем модель
-model = RecurrentModel(INPUT_SIZE, HIDDEN_SIZE, NUM_LAYERS, DROPOUT, 'LSTM')
+model = RecurrentModel(INPUT_SIZE, HIDDEN_SIZE, NUM_LAYERS, DROPOUT, RNN_TYPE)
 
 # Функция потерь и оптимизатор
 criterion = nn.MSELoss() # Среднеквадратичная ошибка для регрессии
@@ -100,14 +101,18 @@ print("Начинаем обучение\n")
 results_filename = "RNN1/training_results.csv"
 
 # Создание файла для записи результатов
-with open(results_filename, 'w', newline='', encoding='utf-8') as csvfile:
-    pass
+try:
+    with open(results_filename, 'r', newline='', encoding='utf-8') as csvfile:
+        pass  # Файл существует
+except FileNotFoundError:
+    with open(results_filename, 'w', newline='', encoding='utf-8') as csvfile:
+        pass
 
 batch_size = 32
 train_losses = []
 test_losses = []
 
-for epoch in range(100):
+for epoch in range(200):
     model.train()
     total_loss = 0
 
@@ -143,7 +148,7 @@ for epoch in range(100):
         test_losses.append(test_loss)
     
     if (epoch + 1) % 20 == 0:
-        epoch = f'{epoch+1}/{100}'
+        epoch = f'{epoch+1}/{200}'
         with open(results_filename, 'a', newline='', encoding='utf-8') as csvfile:
             csvfile.write(f'Epoch [{epoch}], Train Loss: {avg_loss:.6f}, Test Loss: {test_loss:.6f}\n')
 
