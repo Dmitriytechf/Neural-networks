@@ -1,0 +1,27 @@
+# Виртуальное окружение Python
+venv/
+.venv/
+env/
+*.pyc
+__pycache__/
+
+# Игнорировать файлы окружения
+.env
+.env.local
+
+# Игнорировать системные файлы IDE
+.idea/
+.vscode/
+*.swp
+
+# Игнорировать логи и кэш
+*.log
+*.cache
+
+# Базы данных
+db.sqlite3
+
+# Заметки
+*.txt
+*.csv
+help_info
