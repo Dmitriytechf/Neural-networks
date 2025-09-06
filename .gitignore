@@ -22,6 +22,5 @@ __pycache__/
 db.sqlite3
 
 # Заметки
-*.txt
 *.csv
 help_info
